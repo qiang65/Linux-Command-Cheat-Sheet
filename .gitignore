@@ -1,0 +1,26 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ---- 构建产物 ----
+build/
+dist/
+*.spec
+
+# ---- 编辑器 / 工具缓存 ----
+.vscode/
+.idea/
+.cache/
+.shots/
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini
