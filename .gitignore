@@ -24,3 +24,8 @@ dist/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ---- SQLite 运行时数据库（保留 *.json 种子数据）----
+data/*.db
+data/*.db-shm
+data/*.db-wal
