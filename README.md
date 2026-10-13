@@ -40,6 +40,29 @@ powershell -ExecutionPolicy Bypass -File .\build_windows.ps1
 构建产物为 `dist/LinuxManual.exe`。首次运行时数据库保存在当前用户的应用数据目录。
 
 macOS 可双击 `启动Linux手册.command`。首次运行会创建 `.venv-macos` 并安装 PyQt5，之后直接启动程序。若 macOS 阻止脚本运行，在终端进入项目目录执行一次：
+一键修复（在 Mac 终端粘贴执行）
+如果报下面错误：                    
+zsh: ./\M-e}\M-/\M-e)\M-(Linux\M-f()\M-e^$.command: bad interpreter: /bin/bash^M: no such file or directory
+
+一键修复（在 Mac 终端粘贴执行）
+```bash
+cd "你存放的地址"
+
+# 1) 所有 .command / .sh 转成 Unix 行尾（解决 bad interpreter ^M）
+find . \( -name "*.command" -o -name "*.sh" \) -type f -exec perl -pi -e 's/\r$//' {} +
+
+# 2) 去掉文件开头的 UTF-8 BOM（Windows 保存常带）
+find . \( -name "*.command" -o -name "*.sh" \) -type f -exec perl -pi -e 's/^\xEF\xBB\xBF//' {} +
+
+# 3) 脚本里的 python 命令换成 python3（解决 python not found）
+find . \( -name "*.command" -o -name "*.sh" \) -type f -exec perl -pi -e 's/(?<![-\w.])python(?![-\w.])/python3/g' {} +
+
+# 4) 加执行权限（双击 .command 必需）
+chmod +x *.command *.sh 2>/dev/null
+
+# 5) 检查 python3 是否可用
+command -v python3 || echo "python3 不存在，需要先运行: xcode-select --install"
+```
 
 ```bash
 chmod +x 启动Linux手册.command
